@@ -74,7 +74,7 @@ $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
 $dist = Join-Path $repoRoot 'dist'
 $caddySnippet = Join-Path $repoRoot 'deploy\caddy\cubiops.caddy'
 $unitFile = Join-Path $repoRoot 'deploy\systemd\cubiops-contact.service'
-$serverOut = Join-Path $repoRoot 'dist-server\contact-api.mjs'
+$serverOut = Join-Path $repoRoot 'dist-server\contact-api.cjs'
 
 Write-Host '==> 1/6 Comprobando servicios ajenos en el VPS...'
 Invoke-Remote $plink $hostName $port $user $password $hostKey @'
@@ -84,7 +84,10 @@ echo "barbershop=$(systemctl is-active barbershop-haf || true)"
 echo "caddy=$(systemctl is-active caddy || true)"
 echo "mysql=$(systemctl is-active mysql || true)"
 echo "postgres=$(systemctl is-active postgresql@16-main || true)"
-ss -lntp | grep -E ":8080|:3000|:80|:443|:3017" || true
+ss -lntp | grep 8080 || true
+ss -lntp | grep 3000 || true
+ss -lntp | grep ':80 ' || true
+ss -lntp | grep ':443' || true
 '@
 
 Write-Host '==> 2/6 Compilando web y API de contacto...'
@@ -108,14 +111,14 @@ Invoke-Remote $plink $hostName $port $user $password $hostKey @"
 set -e
 stamp='$stamp'
 mkdir -p /var/backups/cubiops
-if [ -d '$webDir' ]; then
-  tar -C $(dirname '$webDir') -czf /var/backups/cubiops/web-\$stamp.tgz $(basename '$webDir')
+if [ -d /var/www/cubiops ]; then
+  tar -C /var/www -czf /var/backups/cubiops/web-\$stamp.tgz cubiops
 fi
 cp -a /etc/caddy/Caddyfile /var/backups/cubiops/Caddyfile-\$stamp
-if [ -d '$contactDir' ]; then
-  tar -C $(dirname '$contactDir') -czf /var/backups/cubiops/contact-\$stamp.tgz $(basename '$contactDir') || true
+if [ -d /opt/cubiops-contact ]; then
+  tar -C /opt -czf /var/backups/cubiops/contact-\$stamp.tgz cubiops-contact || true
 fi
-mkdir -p '$webDir' '$contactDir' /tmp/cubiops-upload
+mkdir -p /var/www/cubiops /opt/cubiops-contact /tmp/cubiops-upload
 echo BACKUP_OK \$stamp
 "@
 
@@ -126,77 +129,15 @@ if (Test-Path $bundle) { Remove-Item $bundle -Force }
 tar -czf $bundle -C $dist .
 Invoke-Remote $plink $hostName $port $user $password $hostKey "mkdir -p $remoteTmp"
 Copy-Remote $pscp $hostName $port $user $password $hostKey $bundle "$remoteTmp/site.tgz"
-Copy-Remote $pscp $hostName $port $user $password $hostKey $serverOut "$remoteTmp/contact-api.mjs"
+Copy-Remote $pscp $hostName $port $user $password $hostKey $serverOut "$remoteTmp/contact-api.cjs"
 Copy-Remote $pscp $hostName $port $user $password $hostKey $caddySnippet "$remoteTmp/cubiops.caddy"
 Copy-Remote $pscp $hostName $port $user $password $hostKey $unitFile "$remoteTmp/cubiops-contact.service"
+$publishScript = Join-Path $repoRoot 'deploy\remote-publish.sh'
+Copy-Remote $pscp $hostName $port $user $password $hostKey $publishScript "$remoteTmp/remote-publish.sh"
 Remove-Item $bundle -Force
 
 Write-Host '==> 5/6 Publicando sin tocar otros sitios...'
-Invoke-Remote $plink $hostName $port $user $password $hostKey @"
-set -e
-stamp='$stamp'
-web='$webDir'
-contact='$contactDir'
-tmp='$remoteTmp'
-
-if [ -d "\$web" ]; then
-  rm -rf /var/www/cubiops.prev
-  mv "\$web" /var/www/cubiops.prev
-fi
-mkdir -p "\$web"
-tar -xzf "\$tmp/site.tgz" -C "\$web"
-chown -R caddy:caddy "\$web"
-find "\$web" -type d -exec chmod 755 {} \;
-find "\$web" -type f -exec chmod 644 {} \;
-
-install -d -o caddy -g caddy "\$contact"
-cp "\$tmp/contact-api.mjs" "\$contact/contact-api.mjs"
-chown caddy:caddy "\$contact/contact-api.mjs"
-chmod 750 "\$contact/contact-api.mjs"
-if [ ! -f "\$contact/.env" ]; then
-  umask 077
-  printf '%s\n' 'CONTACT_BIND_HOST=127.0.0.1' 'CONTACT_BIND_PORT=3017' 'CONTACT_ALLOWED_ORIGIN=https://cubiops.com' 'SMTP_HOST=' 'SMTP_PORT=587' 'SMTP_SECURE=false' 'SMTP_USER=' 'SMTP_PASS=' 'SMTP_FROM=CubiOps <hola@cubiops.com>' 'CONTACT_TO=hola@cubiops.com' > "\$contact/.env"
-  chown caddy:caddy "\$contact/.env"
-  chmod 600 "\$contact/.env"
-fi
-
-install -m 644 "\$tmp/cubiops-contact.service" /etc/systemd/system/cubiops-contact.service
-systemctl daemon-reload
-systemctl enable cubiops-contact
-systemctl restart cubiops-contact || echo 'AVISO: cubiops-contact no arrancó; la web estática sigue disponible.'
-
-python3 - <<'PY'
-from pathlib import Path
-src = Path("$remoteTmp/cubiops.caddy").read_text()
-begin, end = "# BEGIN CUBIOPS", "# END CUBIOPS"
-block = src[src.index(begin):src.index(end) + len(end)] + "\n"
-path = Path("/etc/caddy/Caddyfile")
-backup = Path("/etc/caddy/Caddyfile.bak.cubiops-live")
-backup.write_text(path.read_text())
-text = path.read_text()
-if begin in text and end in text:
-    text = text[:text.index(begin)] + block + text[text.index(end) + len(end):]
-else:
-    if not text.endswith("\n"):
-        text += "\n"
-    text += "\n" + block
-path.write_text(text)
-print("Caddyfile actualizado")
-PY
-
-if ! caddy validate --config /etc/caddy/Caddyfile; then
-  echo 'Caddyfile inválido; restaurando'
-  cp /etc/caddy/Caddyfile.bak.cubiops-live /etc/caddy/Caddyfile
-  exit 1
-fi
-if ! systemctl reload caddy; then
-  echo 'Reload de Caddy falló; restaurando'
-  cp /etc/caddy/Caddyfile.bak.cubiops-live /etc/caddy/Caddyfile
-  systemctl reload caddy
-  exit 1
-fi
-echo DEPLOY_OK
-"@
+Invoke-Remote $plink $hostName $port $user $password $hostKey "tr -d '\r' < $remoteTmp/remote-publish.sh > $remoteTmp/publish.sh && bash $remoteTmp/publish.sh $remoteTmp"
 
 Write-Host '==> 6/6 Verificando que los demás servicios siguen activos...'
 Invoke-Remote $plink $hostName $port $user $password $hostKey @'

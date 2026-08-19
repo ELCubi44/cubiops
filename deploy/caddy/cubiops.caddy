@@ -1,6 +1,14 @@
 # CubiOps — sitio estático en /var/www/cubiops
 # Insertado y actualizado por scripts/deploy-server.ps1
 # BEGIN CUBIOPS
+http://www.cubiops.com, http://cubiops.es, http://www.cubiops.es {
+	redir https://cubiops.com{uri} 301
+}
+
+www.cubiops.com, cubiops.es, www.cubiops.es {
+	redir https://cubiops.com{uri} 301
+}
+
 cubiops.com {
 	encode gzip zstd
 	header {
@@ -25,9 +33,5 @@ cubiops.com {
 		rewrite * /404.html
 		file_server
 	}
-}
-
-www.cubiops.com, cubiops.es, www.cubiops.es {
-	redir https://cubiops.com{uri} 301
 }
 # END CUBIOPS
