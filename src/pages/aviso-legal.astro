@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="Aviso legal"
+  description="Aviso legal de CubiOps. Los datos fiscales definitivos se completarán cuando estén confirmados."
+  path="/aviso-legal"
+>
+  <section class="legal">
+    <article class="wrap legal-card">
+      <p class="kicker">Legal</p>
+      <h1>Aviso legal</h1>
+      <p>Última actualización: 20 de agosto de 2026.</p>
+
+      <h2>1. Titular</h2>
+      <p>
+        Este sitio web, accesible en <strong>{site.url}</strong>, es el sitio oficial de
+        <strong>{site.name}</strong>, un estudio independiente de diseño y desarrollo.
+      </p>
+      <p>
+        Los datos identificativos completos del titular (nombre y apellidos o razón
+        social, NIF/NIE/CIF y domicilio fiscal) se publicarán aquí cuando estén
+        confirmados. Hasta entonces, el canal de contacto previsto es
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>2. Condiciones de uso</h2>
+      <p>
+        El acceso al sitio implica la aceptación de este aviso. Los contenidos se
+        ofrecen con carácter informativo sobre los servicios de CubiOps. No
+        constituyen una oferta vinculante ni una promesa de resultados.
+      </p>
+
+      <h2>3. Propiedad intelectual</h2>
+      <p>
+        El diseño, los textos, el logotipo y los recursos visuales de este sitio
+        pertenecen a CubiOps, salvo que se indique otra autoría. No está permitida
+        su reproducción con fines comerciales sin autorización.
+      </p>
+
+      <h2>4. Responsabilidad</h2>
+      <p>
+        CubiOps procura que la información sea clara y actual, pero no puede
+        garantizar la ausencia total de errores tipográficos o de disponibilidad
+        puntual del sitio. Los enlaces a sitios de terceros, si los hubiera, se
+        ofrecen para facilitar la navegación; CubiOps no responde de sus contenidos.
+      </p>
+
+      <h2>5. Legislación</h2>
+      <p>
+        Este aviso se rige por la legislación española. Para cualquier controversia,
+        las partes se someterán a los juzgados y tribunales que resulten competentes
+        conforme a la normativa aplicable, con especial atención a la protección
+        de consumidores y usuarios cuando proceda.
+      </p>
+    </article>
+  </section>
+</BaseLayout>

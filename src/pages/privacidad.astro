@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="Política de privacidad"
+  description="Cómo trata CubiOps los datos personales del formulario de contacto y de los proyectos."
+  path="/privacidad"
+>
+  <section class="legal">
+    <article class="wrap legal-card">
+      <p class="kicker">Privacidad</p>
+      <h1>Política de privacidad</h1>
+      <p>Última actualización: 20 de agosto de 2026.</p>
+
+      <h2>1. Responsable</h2>
+      <p>
+        El responsable del tratamiento es <strong>{site.name}</strong>. Los datos
+        fiscales completos se añadirán al aviso legal cuando estén confirmados.
+        Contacto previsto: <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>2. Qué datos se recogen y para qué</h2>
+      <p>Si usas el formulario de contacto, se tratan:</p>
+      <ul>
+        <li>Nombre</li>
+        <li>Empresa o actividad</li>
+        <li>Correo electrónico</li>
+        <li>Teléfono, si lo indicas</li>
+        <li>Tipo de proyecto y la descripción del proceso que quieres mejorar</li>
+        <li>La aceptación de esta política</li>
+      </ul>
+      <p>
+        La finalidad es evaluar tu consulta, preparar una propuesta si procede y
+        responderte. La base jurídica es tu consentimiento y, en su caso, la
+        aplicación de medidas precontractuales a petición tuya.
+      </p>
+
+      <h2>3. Conservación</h2>
+      <p>
+        Los mensajes se conservan el tiempo necesario para gestionar la conversación
+        y, si no hay relación posterior, se eliminan en un plazo razonable. Si
+        contratamos un proyecto, los datos necesarios se conservarán mientras dure
+        la relación y los plazos legales aplicables.
+      </p>
+
+      <h2>4. Destinatarios</h2>
+      <p>
+        No se venden datos. Pueden acceder proveedores estrictamente necesarios
+        (por ejemplo, el alojamiento del servidor o el servicio de correo),
+        sujetos a las garantías adecuadas. No se realizan transferencias
+        internacionales salvo que un proveedor concreto lo exija; en ese caso se
+        informará.
+      </p>
+
+      <h2>5. Derechos</h2>
+      <p>
+        Puedes solicitar acceso, rectificación, supresión, limitación, portabilidad
+        u oposición, y retirar el consentimiento, escribiendo a
+        <a href={`mailto:${site.email}`}>{site.email}</a>. También puedes reclamar
+        ante la Agencia Española de Protección de Datos (aepd.es).
+      </p>
+
+      <h2>6. Datos de tus clientes</h2>
+      <p>
+        Si CubiOps mantiene o trata datos de tus clientes (por ejemplo, en un
+        sistema de reservas o un panel interno), actuará como encargado del
+        tratamiento. Ese encargo se documentará en un contrato específico. La
+        estructura está en la página de
+        <a href="/encargado-tratamiento">encargado del tratamiento</a>.
+      </p>
+
+      <h2>7. Titularidad</h2>
+      <p>
+        El dominio, las cuentas y los datos de tu negocio deben estar a tu nombre.
+        CubiOps no necesita ser titular para diseñar, publicar o mantener una
+        solución.
+      </p>
+    </article>
+  </section>
+</BaseLayout>

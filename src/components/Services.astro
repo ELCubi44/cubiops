@@ -1,0 +1,25 @@
+---
+import { services } from '../data/content';
+---
+
+<section class="section" id="servicios" aria-labelledby="servicios-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Servicios</p>
+      <h2 id="servicios-title">Lo que puedo construir para tu negocio.</h2>
+      <p class="lede">
+        Elige un punto de partida. El alcance lo definimos juntos, sin vender
+        más de lo que necesitas.
+      </p>
+    </div>
+    <div class="cards">
+      {services.map((item) => (
+        <article class="card" id={item.id}>
+          <h3>{item.title}</h3>
+          <p class="lead">{item.lead}</p>
+          <p>{item.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

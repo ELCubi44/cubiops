@@ -1,0 +1,20 @@
+---
+import { faqs } from '../data/content';
+---
+
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Preguntas frecuentes</p>
+      <h2 id="faq-title">Respuestas claras, sin letra pequeña de marketing.</h2>
+    </div>
+    <div class="faq-list">
+      {faqs.map((item) => (
+        <details class="faq">
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

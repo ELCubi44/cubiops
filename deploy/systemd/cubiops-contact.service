@@ -1,0 +1,18 @@
+[Unit]
+Description=CubiOps contact API
+After=network.target
+# No entra en conflicto con miapi (8080) ni barbershop-haf (3000).
+
+[Service]
+Type=simple
+User=caddy
+Group=caddy
+WorkingDirectory=/opt/cubiops-contact
+ExecStart=/usr/bin/node /opt/cubiops-contact/contact-api.mjs
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+EnvironmentFile=-/opt/cubiops-contact/.env
+
+[Install]
+WantedBy=multi-user.target

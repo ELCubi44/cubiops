@@ -1,0 +1,33 @@
+# CubiOps — sitio estático en /var/www/cubiops
+# Insertado y actualizado por scripts/deploy-server.ps1
+# BEGIN CUBIOPS
+cubiops.com {
+	encode gzip zstd
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	handle /api/contact {
+		reverse_proxy 127.0.0.1:3017
+	}
+
+	handle {
+		root * /var/www/cubiops
+		try_files {path} {path}/index.html {path}.html /404.html
+		file_server
+	}
+
+	handle_errors {
+		root * /var/www/cubiops
+		rewrite * /404.html
+		file_server
+	}
+}
+
+www.cubiops.com, cubiops.es, www.cubiops.es {
+	redir https://cubiops.com{uri} 301
+}
+# END CUBIOPS

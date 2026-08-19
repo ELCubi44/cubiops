@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import { site } from '../lib/site';
+import { canonicalUrl, titleTemplate } from '../lib/seo';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  path = Astro.url.pathname,
+  image = '/og.webp',
+  type = 'website',
+  noIndex = false,
+} = Astro.props;
+
+const pageTitle = titleTemplate(title);
+const canonical = canonicalUrl(path === '/' ? '/' : path);
+const ogImage = new URL(image, site.url).toString();
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0B1739" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Composición abstracta de CubiOps: un cubo abierto y líneas de proceso." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin />
+    {plausible && (
+      <script is:inline defer data-domain={plausible} src="https://plausible.io/js/script.js"></script>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <Header />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const header = document.querySelector<HTMLElement>('[data-header]');
+      const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const nav = document.querySelector<HTMLElement>('[data-nav]');
+
+      const onScroll = () => {
+        header?.classList.toggle('is-scrolled', window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const closeMenu = () => {
+        nav?.classList.remove('is-open');
+        toggle?.setAttribute('aria-expanded', 'false');
+      };
+
+      toggle?.addEventListener('click', () => {
+        const open = nav?.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      nav?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu();
+      });
+    </script>
+  </body>
+</html>

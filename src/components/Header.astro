@@ -1,0 +1,30 @@
+---
+import CubeMark from './CubeMark.astro';
+import { nav, site } from '../lib/site';
+---
+
+<header class="header" data-header>
+  <div class="header-inner">
+    <a class="logo" href="/" aria-label={`${site.name}, inicio`}>
+      <CubeMark />
+      <span>{site.name}</span>
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="menu-principal"
+      aria-label="Abrir menú"
+    >
+      <span></span>
+    </button>
+    <nav class="nav" id="menu-principal" data-nav aria-label="Principal">
+      {nav.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+      <a class="btn btn-navy btn-cta-mobile" href="/#contacto">Cuéntame qué quieres automatizar</a>
+    </nav>
+    <a class="btn btn-navy btn-cta-desktop" href="/#contacto">Cuéntame qué quieres automatizar</a>
+  </div>
+</header>

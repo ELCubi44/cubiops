@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CubeMark from '../components/CubeMark.astro';
+---
+
+<BaseLayout title="Página no encontrada" description="Esta página no existe en CubiOps." path="/404" noIndex>
+  <section class="not-found">
+    <div class="wrap">
+      <CubeMark style="width: 4rem; height: 4rem; color: #0B1739;" />
+      <h1>Esta página no está.</h1>
+      <p class="lede">
+        El enlace no existe o ha cambiado. Vuelve al inicio para ver servicios,
+        proceso y contacto.
+      </p>
+      <div class="actions">
+        <a class="btn btn-navy" href="/">Volver al inicio</a>
+        <a class="btn btn-ghost" href="/#contacto">Escribir a CubiOps</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

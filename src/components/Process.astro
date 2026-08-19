@@ -1,0 +1,59 @@
+---
+import { Picture } from 'astro:assets';
+import { processSteps } from '../data/content';
+import processImage from '../assets/process-flow.png';
+---
+
+<section class="section" id="como-trabajo" aria-labelledby="proceso-title">
+  <div class="wrap process-layout">
+    <div>
+      <div class="section-head">
+        <p class="kicker">Cómo trabajo</p>
+        <h2 id="proceso-title">Trato directo. Alcance justo. Nada de más.</h2>
+        <p class="lede">
+          Soy la misma persona en el análisis, el diseño, el desarrollo y el
+          mantenimiento. Eso evita ruidos, retrasos y soluciones infladas.
+        </p>
+      </div>
+      <ol class="process">
+        {processSteps.map((step) => (
+          <li class="step">
+            <span class="step-num" aria-hidden="true">{step.n}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <Picture
+      src={processImage}
+      alt="Cinco pasos geométricos unidos por una línea continua, representando un proceso de trabajo sencillo."
+      widths={[400, 640, 900]}
+      sizes="(max-width: 860px) 100vw, 40vw"
+      formats={['avif', 'webp']}
+      quality={78}
+      class="process-visual"
+    />
+  </div>
+</section>
+
+<style>
+  .process-layout {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+  .process-visual {
+    border-radius: 1.4rem;
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: 860px) {
+    .process-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

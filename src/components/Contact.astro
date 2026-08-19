@@ -1,0 +1,199 @@
+---
+import { PROJECT_TYPES } from '../lib/contact';
+import { site } from '../lib/site';
+
+const contactEmail = (import.meta.env.PUBLIC_CONTACT_EMAIL as string | undefined) || site.email;
+const apiUrl = (import.meta.env.PUBLIC_CONTACT_API_URL as string | undefined) || '/api/contact';
+---
+
+<section class="section" id="contacto" aria-labelledby="contacto-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Contacto</p>
+      <h2 id="contacto-title">Cuéntame qué quieres automatizar.</h2>
+      <p class="lede">
+        Un mensaje basta para empezar. Te responderé yo, no un comercial.
+        Si el formulario no puede enviarse todavía, usa el correo.
+      </p>
+    </div>
+
+    <form class="form" data-contact-form novalidate>
+      <input type="hidden" name="api" value={apiUrl} />
+      <div class="hp" aria-hidden="true">
+        <label>
+          Sitio web
+          <input type="text" name="website" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Nombre</span>
+          <input type="text" name="name" autocomplete="name" required minlength="2" maxlength="80" />
+        </label>
+        <p class="field-error" data-error-for="name"></p>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Empresa o actividad</span>
+          <input type="text" name="company" autocomplete="organization" required minlength="2" maxlength="120" />
+        </label>
+        <p class="field-error" data-error-for="company"></p>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Correo electrónico</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <p class="field-error" data-error-for="email"></p>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Teléfono (opcional)</span>
+          <input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" />
+        </label>
+        <p class="field-error" data-error-for="phone"></p>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Tipo de proyecto</span>
+          <select name="projectType" required>
+            <option value="">Selecciona una opción</option>
+            {PROJECT_TYPES.map((type) => (
+              <option value={type}>{type}</option>
+            ))}
+          </select>
+        </label>
+        <p class="field-error" data-error-for="projectType"></p>
+      </div>
+
+      <div class="field">
+        <label>
+          <span>Qué proceso quieres mejorar</span>
+          <textarea name="message" required minlength="20" maxlength="4000" placeholder="Ejemplo: las reservas llegan por WhatsApp, las confirmo a mano y se me olvidan los recordatorios."></textarea>
+        </label>
+        <p class="field-error" data-error-for="message"></p>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" name="privacy" required />
+        <span>
+          He leído la <a href="/privacidad">política de privacidad</a> y acepto que CubiOps
+          trate estos datos solo para evaluar el proyecto y responder.
+        </span>
+      </label>
+      <p class="field-error" data-error-for="privacy"></p>
+
+      <button class="btn btn-primary" type="submit">Enviar propuesta</button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+      <p class="alt-mail">
+        También puedes escribir a
+        <a data-mailto href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+        Esa es la dirección prevista de CubiOps; confirma en tu proveedor de correo que la bandeja está activa.
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { buildMailto, validateContact } from '../lib/contact';
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-form-status]');
+    const mailto = form.querySelector<HTMLAnchorElement>('[data-mailto]');
+    const apiUrl = (form.querySelector<HTMLInputElement>('input[name="api"]')?.value || '/api/contact').trim();
+
+    const clearErrors = () => {
+      form.querySelectorAll<HTMLElement>('[data-error-for]').forEach((node) => {
+        node.textContent = '';
+      });
+    };
+
+    const showErrors = (errors: Record<string, string | undefined>) => {
+      Object.entries(errors).forEach(([key, message]) => {
+        const node = form.querySelector(`[data-error-for="${key}"]`);
+        if (node) node.textContent = message ?? '';
+      });
+    };
+
+    const payloadFromForm = () => {
+      const data = new FormData(form);
+      return {
+        name: String(data.get('name') ?? ''),
+        company: String(data.get('company') ?? ''),
+        email: String(data.get('email') ?? ''),
+        phone: String(data.get('phone') ?? ''),
+        projectType: String(data.get('projectType') ?? ''),
+        message: String(data.get('message') ?? ''),
+        privacy: data.get('privacy') === 'on',
+        website: String(data.get('website') ?? ''),
+      };
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+      if (status) {
+        status.textContent = '';
+        status.dataset.kind = '';
+      }
+
+      const payload = payloadFromForm();
+      const result = validateContact(payload);
+
+      if (mailto && result.ok) {
+        mailto.href = buildMailto({ ...result.data, to: mailto.textContent ?? undefined });
+      }
+
+      if (!result.ok) {
+        showErrors(result.errors);
+        if (status) {
+          status.dataset.kind = 'error';
+          status.textContent = 'Revisa los campos marcados antes de enviar.';
+        }
+        const firstField = form.querySelector<HTMLElement>('[data-error-for]')?.parentElement?.querySelector('input, select, textarea');
+        if (firstField instanceof HTMLElement) firstField.focus();
+        return;
+      }
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body = (await response.json().catch(() => null)) as
+          | { ok?: boolean; code?: string; message?: string }
+          | null;
+
+        if (response.ok && body?.ok) {
+          form.reset();
+          if (status) {
+            status.dataset.kind = 'ok';
+            status.textContent = 'Mensaje enviado. Te responderé lo antes posible.';
+          }
+          return;
+        }
+
+        const smtpMissing = response.status === 503 || body?.code === 'SMTP_NOT_CONFIGURED';
+        if (status) {
+          status.dataset.kind = 'error';
+          status.textContent = smtpMissing
+            ? 'El envío automático aún no está configurado. Usa el correo de abajo: el mensaje no se ha enviado.'
+            : body?.message || 'No se ha podido enviar el formulario. Usa el correo de contacto.';
+        }
+      } catch {
+        if (status) {
+          status.dataset.kind = 'error';
+          status.textContent =
+            'No se ha podido contactar con el servidor. El mensaje no se ha enviado. Usa el correo de contacto.';
+        }
+      }
+    });
+  }
+</script>

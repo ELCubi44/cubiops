@@ -1,0 +1,31 @@
+# build
+dist/
+dist-server/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# environment and secrets
+.env
+.env.*
+!.env.example
+.local/*
+!.local/deploy.env.example
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+
+# generated screenshots (keep docs/screenshots if committed)
+.cache/
+coverage/

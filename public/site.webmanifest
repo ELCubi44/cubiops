@@ -1,0 +1,22 @@
+{
+  "name": "CubiOps",
+  "short_name": "CubiOps",
+  "description": "Páginas web, aplicaciones y automatizaciones para pequeños negocios.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F7F9FC",
+  "theme_color": "#0B1739",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

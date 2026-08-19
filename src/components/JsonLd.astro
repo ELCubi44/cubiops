@@ -1,0 +1,32 @@
+---
+import { faqs } from '../data/content';
+import { site } from '../lib/site';
+
+const professional = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  url: site.url,
+  email: site.email,
+  description: site.description,
+  areaServed: 'ES',
+  availableLanguage: ['es'],
+  slogan: site.tagline,
+};
+
+const faqPage = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(professional)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faqPage)} />

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="Encargado del tratamiento"
+  description="Estructura del contrato de encargado del tratamiento cuando CubiOps mantiene datos de clientes."
+  path="/encargado-tratamiento"
+>
+  <section class="legal">
+    <article class="wrap legal-card">
+      <p class="kicker">RGPD</p>
+      <h1>Encargado del tratamiento</h1>
+      <p>
+        Esta página describe la estructura del contrato que se firmará cuando
+        CubiOps trate datos personales por cuenta de un cliente (por ejemplo,
+        reservas, fichas o un panel interno). No sustituye al contrato firmado.
+      </p>
+
+      <h2>Partes</h2>
+      <ul>
+        <li>Responsable: el cliente, titular de los datos de su negocio.</li>
+        <li>Encargado: CubiOps. Datos fiscales pendientes de completar.</li>
+      </ul>
+
+      <h2>Objeto</h2>
+      <p>
+        El tratamiento se limitará a lo necesario para prestar el servicio
+        acordado: alojar, mantener, copiar de seguridad o hacer evolucionar la
+        solución. CubiOps no usará esos datos para marketing propio.
+      </p>
+
+      <h2>Instrucciones y seguridad</h2>
+      <ul>
+        <li>Tratar los datos solo según instrucciones documentadas del responsable.</li>
+        <li>Aplicar medidas técnicas y organizativas razonables al tipo de dato.</li>
+        <li>Garantizar confidencialidad de quien acceda al sistema.</li>
+        <li>No subencargar sin informar, salvo proveedores de infraestructura ya identificados.</li>
+        <li>Ayudar al responsable frente a ejercicios de derechos y, si procede, notificaciones de brechas.</li>
+        <li>Devolver o suprimir los datos al terminar el servicio, salvo obligación legal de conservación.</li>
+      </ul>
+
+      <h2>Titularidad</h2>
+      <p>
+        El cliente es titular del dominio, de las cuentas y de los datos. CubiOps
+        no reclama propiedad sobre la información de negocio del cliente.
+      </p>
+
+      <p>
+        Para solicitar el contrato adaptado a un proyecto concreto, escribe a
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </article>
+  </section>
+</BaseLayout>

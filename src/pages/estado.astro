@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="Estado"
+  description="Versión publicada de la web de CubiOps."
+  path="/estado"
+  noIndex
+>
+  <section class="legal">
+    <article class="wrap legal-card">
+      <p class="kicker">Estado</p>
+      <h1>Versión de la web</h1>
+      <p>Sitio: {site.name}</p>
+      <p>Versión: {site.version}</p>
+      <p>URL canónica: {site.url}</p>
+      <p>Generador: {Astro.generator}</p>
+      <p>
+        Esta página existe para comprobar qué versión está servida. No forma parte
+        de la navegación principal.
+      </p>
+    </article>
+  </section>
+</BaseLayout>

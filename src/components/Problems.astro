@@ -1,0 +1,26 @@
+---
+import { problems } from '../data/content';
+---
+
+<section class="section" id="problemas" aria-labelledby="problemas-title">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Situaciones reales</p>
+      <h2 id="problemas-title">El trabajo repetitivo que se come el día.</h2>
+      <p class="lede">
+        No hace falta un sistema enorme. Hace falta dejar de hacer a mano lo que
+        ya se puede resolver con un flujo claro.
+      </p>
+    </div>
+    <div class="problem-grid">
+      {problems.map((item) => (
+        <article class="problem">
+          <h3>{item.title}</h3>
+          <p>{item.problem}</p>
+          <p><strong>Cómo lo resuelvo</strong></p>
+          <p>{item.solution}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
