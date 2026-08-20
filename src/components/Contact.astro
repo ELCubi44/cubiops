@@ -2,7 +2,7 @@
 import { PROJECT_TYPES } from '../lib/contact';
 import { site } from '../lib/site';
 
-const contactEmail = (import.meta.env.PUBLIC_CONTACT_EMAIL as string | undefined) || site.email;
+const contactEmail = site.email;
 const apiUrl = (import.meta.env.PUBLIC_CONTACT_API_URL as string | undefined) || '/api/contact';
 ---
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildMailto, isHoneypotFilled, validateContact } from '../src/lib/contact';
+import { site } from '../src/lib/site';
 
 const valid = {
   name: 'Ana Pérez',
@@ -47,9 +48,10 @@ describe('honeypot y mailto', () => {
     expect(isHoneypotFilled('  ')).toBe(false);
   });
 
-  it('arma un mailto con el contenido del formulario', () => {
+  it('usa contacto@cubiops.com como correo público y en el mailto', () => {
+    expect(site.email).toBe('contacto@cubiops.com');
     const href = buildMailto(valid);
-    expect(href.startsWith('mailto:contact@cubiops.com')).toBe(true);
+    expect(href.startsWith('mailto:contacto@cubiops.com')).toBe(true);
     expect(href).toContain('Presupuesto%20CubiOps');
   });
 });

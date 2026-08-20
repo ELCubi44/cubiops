@@ -118,7 +118,7 @@ export function buildMailto(input: {
   message: string;
   to?: string;
 }): string {
-  const to = input.to ?? 'contact@cubiops.com';
+  const to = input.to ?? 'contacto@cubiops.com';
   const subject = encodeURIComponent(`Presupuesto CubiOps — ${input.company}`);
   const body = encodeURIComponent(
     [

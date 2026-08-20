@@ -20,7 +20,8 @@ cp "$TMP_DIR/contact-api.cjs" "$CONTACT_DIR/contact-api.cjs"
 chown caddy:caddy "$CONTACT_DIR/contact-api.cjs"
 chmod 750 "$CONTACT_DIR/contact-api.cjs"
 if [ -f "$CONTACT_DIR/.env" ]; then
-  sed -i 's/hola@cubiops.com/contact@cubiops.com/g' "$CONTACT_DIR/.env"
+  sed -i 's/hola@cubiops.com/contacto@cubiops.com/g' "$CONTACT_DIR/.env"
+  sed -i 's/contact@cubiops.com/contacto@cubiops.com/g' "$CONTACT_DIR/.env"
 fi
 if [ ! -f "$CONTACT_DIR/.env" ]; then
   umask 077
@@ -31,10 +32,10 @@ CONTACT_ALLOWED_ORIGIN=https://cubiops.com
 SMTP_HOST=authsmtp.securemail.pro
 SMTP_PORT=465
 SMTP_SECURE=true
-SMTP_USER=contact@cubiops.com
+SMTP_USER=contacto@cubiops.com
 SMTP_PASS=
-SMTP_FROM=CubiOps <contact@cubiops.com>
-CONTACT_TO=contact@cubiops.com
+SMTP_FROM=CubiOps <contacto@cubiops.com>
+CONTACT_TO=contacto@cubiops.com
 ENV
   chown caddy:caddy "$CONTACT_DIR/.env"
   chmod 600 "$CONTACT_DIR/.env"
@@ -64,9 +65,9 @@ defaults = {
     'SMTP_HOST': 'authsmtp.securemail.pro',
     'SMTP_PORT': '465',
     'SMTP_SECURE': 'true',
-    'SMTP_USER': 'contact@cubiops.com',
-    'SMTP_FROM': 'CubiOps <contact@cubiops.com>',
-    'CONTACT_TO': 'contact@cubiops.com',
+    'SMTP_USER': 'contacto@cubiops.com',
+    'SMTP_FROM': 'CubiOps <contacto@cubiops.com>',
+    'CONTACT_TO': 'contacto@cubiops.com',
 }
 for key, default in defaults.items():
     current = values.get(key, '').strip()

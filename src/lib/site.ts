@@ -6,13 +6,13 @@ export const site = {
   legalCountry: 'España',
   domain: 'cubiops.com',
   url: 'https://cubiops.com',
-  email: 'contact@cubiops.com',
+  email: 'contacto@cubiops.com',
   locale: 'es_ES',
   language: 'es',
   description:
     'CubiOps diseña y desarrolla páginas web, aplicaciones y automatizaciones a medida para autónomos y pequeñas empresas. Presupuesto gratis, sin compromiso.',
   tagline: 'Automatización útil para negocios reales.',
-  version: '1.3.0',
+  version: '1.4.0',
 } as const;
 
 export const nav = [
