@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'on-light' | 'on-dark';
+  class?: string;
+}
+
+const { variant = 'on-light', class: className = '' } = Astro.props;
+const src = variant === 'on-dark' ? '/brand/logo-on-dark.png' : '/brand/logo.png';
+---
+
+<img
+  class:list={['brand-logo', className]}
+  src={src}
+  alt="CubiOps"
+  width="760"
+  height="181"
+  decoding="async"
+/>

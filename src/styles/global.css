@@ -267,11 +267,18 @@ h3 {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
   text-decoration: none;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  font-size: 1.12rem;
+}
+
+.brand-logo {
+  display: block;
+  height: 2.2rem;
+  width: auto;
+}
+
+.brand-mark {
+  width: 4rem;
+  height: auto;
 }
 
 .logo svg {
@@ -416,7 +423,7 @@ h3 {
   transition: transform 220ms ease-out;
 }
 
-.hero-visual img {
+.hero-visual img:not(.hero-cube) {
   width: 100%;
   height: auto;
   border-radius: calc(var(--radius) + 0.4rem);
@@ -429,6 +436,7 @@ h3 {
   right: 8%;
   top: 10%;
   width: 5.5rem;
+  height: auto;
   opacity: 0.95;
   animation: float 7s ease-in-out infinite;
   filter: drop-shadow(0 12px 20px rgba(17, 217, 165, 0.25));
@@ -1000,6 +1008,10 @@ html.js-motion .problem.is-in:hover {
 @media (max-width: 520px) {
   .hero-visual {
     min-height: 0;
+  }
+
+  .brand-logo {
+    height: 1.85rem;
   }
 }
 

@@ -1,13 +1,12 @@
 ---
-import CubeMark from './CubeMark.astro';
+import BrandLogo from './BrandLogo.astro';
 import { nav, site } from '../lib/site';
 ---
 
 <header class="header" data-header>
   <div class="header-inner">
     <a class="logo" href="/" aria-label={`${site.name}, inicio`}>
-      <CubeMark />
-      <span>{site.name}</span>
+      <BrandLogo />
     </a>
     <button
       class="menu-toggle"
