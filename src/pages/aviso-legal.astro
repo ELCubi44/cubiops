@@ -5,7 +5,7 @@ import { site } from '../lib/site';
 
 <BaseLayout
   title="Aviso legal"
-  description="Aviso legal de CubiOps. Los datos fiscales definitivos se completarán cuando estén confirmados."
+  description={`Aviso legal de CubiOps. Titular: ${site.legalName}.`}
   path="/aviso-legal"
 >
   <section class="legal">
@@ -19,18 +19,24 @@ import { site } from '../lib/site';
         Este sitio web, accesible en <strong>{site.url}</strong>, es el sitio oficial de
         <strong>{site.name}</strong>, un estudio independiente de diseño y desarrollo.
       </p>
+      <ul>
+        <li>Titular: {site.legalName}</li>
+        <li>NIF: {site.legalId}</li>
+        <li>Localidad: {site.legalCity} ({site.legalCountry})</li>
+        <li>Correo: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
       <p>
-        Los datos identificativos completos del titular (nombre y apellidos o razón
-        social, NIF/NIE/CIF y domicilio fiscal) se publicarán aquí cuando estén
-        confirmados. Hasta entonces, el canal de contacto previsto es
-        <a href={`mailto:${site.email}`}>{site.email}</a>.
+        CubiOps no publica teléfono por el momento. El canal de contacto es el
+        formulario de esta web y el correo indicado.
       </p>
 
       <h2>2. Condiciones de uso</h2>
       <p>
         El acceso al sitio implica la aceptación de este aviso. Los contenidos se
         ofrecen con carácter informativo sobre los servicios de CubiOps. No
-        constituyen una oferta vinculante ni una promesa de resultados.
+        constituyen una oferta vinculante ni una promesa de resultados. El
+        presupuesto que se solicita a través del formulario es gratuito y no
+        obliga a contratar.
       </p>
 
       <h2>3. Propiedad intelectual</h2>

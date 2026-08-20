@@ -1,15 +1,18 @@
 export const site = {
   name: 'CubiOps',
-  legalName: 'CubiOps',
+  legalName: 'Miguel Ángel García Gracia',
+  legalId: '26589533S',
+  legalCity: 'Soria',
+  legalCountry: 'España',
   domain: 'cubiops.com',
   url: 'https://cubiops.com',
-  email: 'hola@cubiops.com',
+  email: 'contact@cubiops.com',
   locale: 'es_ES',
   language: 'es',
   description:
-    'CubiOps diseña y desarrolla páginas web, aplicaciones y automatizaciones a medida para autónomos y pequeñas empresas.',
+    'CubiOps diseña y desarrolla páginas web, aplicaciones y automatizaciones a medida para autónomos y pequeñas empresas. Presupuesto gratis, sin compromiso.',
   tagline: 'Automatización útil para negocios reales.',
-  version: '1.0.0',
+  version: '1.2.0',
 } as const;
 
 export const nav = [

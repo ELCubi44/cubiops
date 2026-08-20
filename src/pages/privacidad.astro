@@ -16,9 +16,10 @@ import { site } from '../lib/site';
 
       <h2>1. Responsable</h2>
       <p>
-        El responsable del tratamiento es <strong>{site.name}</strong>. Los datos
-        fiscales completos se añadirán al aviso legal cuando estén confirmados.
-        Contacto previsto: <a href={`mailto:${site.email}`}>{site.email}</a>.
+        El responsable del tratamiento es <strong>{site.legalName}</strong>
+        (NIF {site.legalId}), titular de <strong>{site.name}</strong>, con
+        actividad en {site.legalCity} ({site.legalCountry}). Contacto:
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
 
       <h2>2. Qué datos se recogen y para qué</h2>

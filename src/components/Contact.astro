@@ -12,8 +12,8 @@ const apiUrl = (import.meta.env.PUBLIC_CONTACT_API_URL as string | undefined) ||
       <p class="kicker">Contacto</p>
       <h2 id="contacto-title">Cuéntame qué quieres automatizar.</h2>
       <p class="lede">
-        Un mensaje basta para empezar. Te responderé yo, no un comercial.
-        Si el formulario no puede enviarse todavía, usa el correo.
+        Cuéntame el proceso que te hace perder tiempo. Te preparo un presupuesto
+        gratis, sin compromiso. Te responderé yo, no un comercial.
       </p>
     </div>
 
@@ -88,12 +88,12 @@ const apiUrl = (import.meta.env.PUBLIC_CONTACT_API_URL as string | undefined) ||
       </label>
       <p class="field-error" data-error-for="privacy"></p>
 
-      <button class="btn btn-primary" type="submit">Enviar propuesta</button>
+      <button class="btn btn-primary" data-magnetic type="submit">Pedir presupuesto gratis</button>
       <p class="form-status" data-form-status role="status" aria-live="polite"></p>
       <p class="alt-mail">
         También puedes escribir a
         <a data-mailto href={`mailto:${contactEmail}`}>{contactEmail}</a>.
-        Esa es la dirección prevista de CubiOps; confirma en tu proveedor de correo que la bandeja está activa.
+        El presupuesto es gratis. Si el envío automático no está activo, usa este correo.
       </p>
     </form>
   </div>

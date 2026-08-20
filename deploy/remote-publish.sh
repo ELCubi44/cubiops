@@ -19,6 +19,9 @@ install -d -o caddy -g caddy "$CONTACT_DIR"
 cp "$TMP_DIR/contact-api.cjs" "$CONTACT_DIR/contact-api.cjs"
 chown caddy:caddy "$CONTACT_DIR/contact-api.cjs"
 chmod 750 "$CONTACT_DIR/contact-api.cjs"
+if [ -f "$CONTACT_DIR/.env" ]; then
+  sed -i 's/hola@cubiops.com/contact@cubiops.com/g' "$CONTACT_DIR/.env"
+fi
 if [ ! -f "$CONTACT_DIR/.env" ]; then
   umask 077
   cat > "$CONTACT_DIR/.env" <<'ENV'
@@ -30,8 +33,8 @@ SMTP_PORT=587
 SMTP_SECURE=false
 SMTP_USER=
 SMTP_PASS=
-SMTP_FROM=CubiOps <hola@cubiops.com>
-CONTACT_TO=hola@cubiops.com
+SMTP_FROM=CubiOps <contact@cubiops.com>
+CONTACT_TO=contact@cubiops.com
 ENV
   chown caddy:caddy "$CONTACT_DIR/.env"
   chmod 600 "$CONTACT_DIR/.env"

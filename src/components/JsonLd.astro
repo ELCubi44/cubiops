@@ -9,9 +9,22 @@ const professional = {
   url: site.url,
   email: site.email,
   description: site.description,
-  areaServed: 'ES',
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'España',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.legalCity,
+    addressCountry: 'ES',
+  },
+  founder: {
+    '@type': 'Person',
+    name: site.legalName,
+  },
   availableLanguage: ['es'],
   slogan: site.tagline,
+  priceRange: 'Presupuesto a medida',
 };
 
 const faqPage = {

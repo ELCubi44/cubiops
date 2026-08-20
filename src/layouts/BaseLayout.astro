@@ -4,6 +4,7 @@ import { site } from '../lib/site';
 import { canonicalUrl, titleTemplate } from '../lib/seo';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import MotionLayer from '../components/MotionLayer.astro';
 
 interface Props {
   title?: string;
@@ -62,6 +63,7 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
     )}
   </head>
   <body>
+    <MotionLayer />
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <Header />
     <main id="contenido">
@@ -69,6 +71,9 @@ const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
     </main>
     <Footer />
     <script>
+      import { initMotion } from '../scripts/motion';
+      initMotion();
+
       const header = document.querySelector<HTMLElement>('[data-header]');
       const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
       const nav = document.querySelector<HTMLElement>('[data-nav]');

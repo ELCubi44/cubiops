@@ -4,22 +4,25 @@ import CubeMark from './CubeMark.astro';
 import heroImage from '../assets/hero-connections.png';
 ---
 
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero" aria-labelledby="hero-title" data-spotlight>
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-grid">
     <div class="hero-copy reveal">
-      <p class="kicker">CubiOps · Web, apps y procesos</p>
+      <p class="kicker">Para autónomos y pequeños negocios</p>
       <h1 id="hero-title">Automatización útil para negocios reales.</h1>
       <p class="lede">
         Creo páginas web, aplicaciones y automatizaciones a medida para que
-        autónomos y pequeñas empresas ahorren tiempo y trabajen con más claridad.
+        ahorres tiempo y dejes de hacer a mano lo que se puede resolver con un
+        flujo claro.
       </p>
       <div class="actions">
-        <a class="btn btn-primary" href="#contacto">Cuéntame qué quieres automatizar</a>
-        <a class="btn btn-secondary" href="#servicios">Descubre lo que puedo crear</a>
+        <a class="btn btn-primary" data-magnetic href="#contacto">Pide un presupuesto gratis</a>
+        <a class="btn btn-secondary" data-magnetic href="#servicios">Descubre lo que puedo crear</a>
       </div>
       <p class="diff">
-        Sin comerciales ni intermediarios. Hablas directamente con la persona que
-        diseña, desarrolla y mantiene tu solución.
+        Sin comerciales ni intermediarios. Hablas conmigo: la misma persona que
+        diseña, desarrolla y mantiene tu solución. El presupuesto es gratis y
+        no te compromete a nada.
       </p>
       <div class="pills" aria-label="Qué construyo">
         <span class="pill">Web</span>
@@ -27,7 +30,7 @@ import heroImage from '../assets/hero-connections.png';
         <span class="pill">Automatización</span>
       </div>
     </div>
-    <div class="hero-visual reveal">
+    <div class="hero-visual reveal" data-parallax>
       <Picture
         src={heroImage}
         alt="Cubo geométrico abierto rodeado de líneas y nodos que representan procesos conectados."

@@ -337,6 +337,8 @@ h3 {
 
 /* Hero */
 .hero {
+  --mx: 78%;
+  --my: 16%;
   position: relative;
   overflow: hidden;
   background:
@@ -346,7 +348,30 @@ h3 {
   padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 9vw, 7rem);
 }
 
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(540px circle at var(--mx) var(--my), rgba(17, 217, 165, 0.3), transparent 54%),
+    radial-gradient(720px circle at 8% 92%, rgba(17, 217, 165, 0.1), transparent 46%);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 72% 28%, black 18%, transparent 72%);
+}
+
 .hero-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(2rem, 5vw, 4.5rem);
@@ -387,6 +412,8 @@ h3 {
 .hero-visual {
   position: relative;
   min-height: 22rem;
+  transform-style: preserve-3d;
+  transition: transform 220ms ease-out;
 }
 
 .hero-visual img {
@@ -434,6 +461,11 @@ h3 {
   gap: 1rem;
 }
 
+.card,
+.problem {
+  transform-style: preserve-3d;
+}
+
 .card {
   background: var(--white);
   border: 1px solid var(--line);
@@ -473,6 +505,13 @@ h3 {
   padding: 1.4rem;
   display: grid;
   gap: 0.55rem;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.problem:hover {
+  transform: translateY(-3px);
+  border-color: #c9d6ea;
+  box-shadow: var(--shadow);
 }
 
 .problem strong {
@@ -565,6 +604,11 @@ details.faq summary::-webkit-details-marker {
 details.faq p {
   color: var(--muted);
   padding-bottom: 1rem;
+}
+
+details.faq[open] {
+  border-color: var(--mint);
+  box-shadow: 0 12px 30px rgba(17, 217, 165, 0.12);
 }
 
 .form {
@@ -744,24 +788,154 @@ details.faq p {
   gap: 1rem;
 }
 
-.reveal {
+.ticker {
+  overflow: hidden;
+  background: #08122c;
+  color: var(--mint);
+  border-block: 1px solid rgba(17, 217, 165, 0.18);
+  padding: 0.9rem 0;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 2.4rem;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+}
+
+.ticker span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.4rem;
+  white-space: nowrap;
+}
+
+.ticker span::after {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  background: var(--mint);
+  transform: rotate(45deg);
+  opacity: 0.55;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--mint), #7ff5d4);
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.cursor,
+.cursor-ring {
+  display: none;
+}
+
+html.has-pointer-motion .cursor,
+html.has-pointer-motion .cursor-ring {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 90;
   opacity: 0;
-  transform: translateY(16px);
-  animation: rise 700ms ease forwards;
+  transition: opacity 180ms ease;
 }
 
-.reveal:nth-child(2) {
-  animation-delay: 80ms;
+html.has-pointer-motion .cursor.is-on,
+html.has-pointer-motion .cursor-ring.is-on {
+  opacity: 1;
 }
 
-.reveal:nth-child(3) {
-  animation-delay: 140ms;
+.cursor {
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 16px rgba(17, 217, 165, 0.8);
 }
 
-@keyframes rise {
+.cursor-ring {
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(17, 217, 165, 0.55);
+  transition: width 180ms ease, height 180ms ease, margin 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.cursor-ring.is-hot {
+  width: 68px;
+  height: 68px;
+  margin: -34px 0 0 -34px;
+  background: rgba(17, 217, 165, 0.12);
+  border-color: var(--mint);
+}
+
+html.has-pointer-motion,
+html.has-pointer-motion a,
+html.has-pointer-motion button,
+html.has-pointer-motion summary,
+html.has-pointer-motion label {
+  cursor: none;
+}
+
+html.has-pointer-motion input,
+html.has-pointer-motion textarea,
+html.has-pointer-motion select {
+  cursor: text;
+}
+
+html.js-motion .reveal,
+html.js-motion .card,
+html.js-motion .problem,
+html.js-motion .step,
+html.js-motion .faq,
+html.js-motion .about,
+html.js-motion .projects-empty,
+html.js-motion .form {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms ease, transform 700ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition-delay: var(--delay, 0ms);
+}
+
+html.js-motion .reveal.is-in,
+html.js-motion .card.is-in,
+html.js-motion .problem.is-in,
+html.js-motion .step.is-in,
+html.js-motion .faq.is-in,
+html.js-motion .about.is-in,
+html.js-motion .projects-empty.is-in,
+html.js-motion .form.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+html.js-motion .card.is-in:hover,
+html.js-motion .problem.is-in:hover {
+  transform: translateY(-4px);
+}
+
+@keyframes marquee {
   to {
-    opacity: 1;
-    transform: none;
+    transform: translateX(-50%);
   }
 }
 
@@ -841,10 +1015,19 @@ details.faq p {
   .reveal,
   .hero-cube,
   .card,
-  .btn {
+  .problem,
+  .btn,
+  .ticker-track {
     animation: none !important;
     transition: none !important;
     opacity: 1;
     transform: none;
+  }
+
+  .cursor,
+  .cursor-ring,
+  .scroll-progress,
+  .hero-glow {
+    display: none !important;
   }
 }

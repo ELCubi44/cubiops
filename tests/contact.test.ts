@@ -49,7 +49,7 @@ describe('honeypot y mailto', () => {
 
   it('arma un mailto con el contenido del formulario', () => {
     const href = buildMailto(valid);
-    expect(href.startsWith('mailto:hola@cubiops.com')).toBe(true);
-    expect(href).toContain('Propuesta%20CubiOps');
+    expect(href.startsWith('mailto:contact@cubiops.com')).toBe(true);
+    expect(href).toContain('Presupuesto%20CubiOps');
   });
 });

@@ -124,7 +124,7 @@ export const faqs = [
   },
   {
     q: '¿Cuánto cuesta un proyecto?',
-    a: 'Depende del problema, del alcance y de lo que no haga falta construir. No publico precios cerrados: cuando entiendo lo que necesitas, te envío una propuesta personalizada. Así evito tarifas genéricas que no se ajustan.',
+    a: 'El presupuesto es gratis y sin compromiso. No publico tarifas cerradas porque cada negocio es distinto: cuando entiendo lo que necesitas, te envío una propuesta clara. CubiOps está pensado para pequeños negocios, con precios más asequibles que una agencia tradicional.',
   },
   {
     q: '¿Hay que pagar mantenimiento?',
