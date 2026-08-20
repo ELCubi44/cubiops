@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { isHoneypotFilled, validateContact } from '../src/lib/contact.ts';
+import { buildProposalMail } from '../src/lib/proposal-mail.ts';
 import nodemailer from 'nodemailer';
 
 const host = process.env.CONTACT_BIND_HOST || '127.0.0.1';
@@ -63,10 +64,11 @@ async function sendMail(data: {
   projectType: string;
   message: string;
 }) {
+  const mail = buildProposalMail(data);
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === 'true',
+    port: Number(process.env.SMTP_PORT || 465),
+    secure: process.env.SMTP_SECURE !== 'false',
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -74,19 +76,18 @@ async function sendMail(data: {
   });
 
   await transporter.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    from: process.env.SMTP_FROM || `CubiOps <${process.env.SMTP_USER}>`,
     to: process.env.CONTACT_TO,
-    replyTo: `${data.name} <${data.email}>`,
-    subject: `Nueva consulta CubiOps — ${data.company}`,
-    text: [
-      `Nombre: ${data.name}`,
-      `Empresa: ${data.company}`,
-      `Correo: ${data.email}`,
-      `Teléfono: ${data.phone || '—'}`,
-      `Tipo: ${data.projectType}`,
-      '',
-      data.message,
-    ].join('\n'),
+    replyTo: mail.replyTo,
+    subject: mail.subject,
+    text: mail.text,
+    html: mail.html,
+    messageId: mail.messageId,
+    headers: {
+      'Auto-Submitted': 'auto-generated',
+      'Content-Language': 'es-ES',
+      'X-Entity-Ref-ID': mail.messageId,
+    },
   });
 }
 
@@ -150,10 +151,12 @@ const server = http.createServer(async (req, res) => {
 
     json(res, 200, { ok: true });
   } catch (error) {
-    const message = error instanceof Error && error.message === 'payload_too_large'
-      ? 'El mensaje es demasiado grande.'
-      : 'No se ha podido enviar el formulario.';
-    json(res, 400, { ok: false, message });
+    if (error instanceof Error && error.message === 'payload_too_large') {
+      json(res, 400, { ok: false, message: 'El mensaje es demasiado grande.' });
+      return;
+    }
+    console.error('cubiops-contact: no se pudo enviar la propuesta');
+    json(res, 502, { ok: false, message: 'No se ha podido enviar el formulario. Usa el correo de contacto.' });
   }
 });
 

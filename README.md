@@ -43,7 +43,7 @@ Mientras no haya casos publicados, la sección pública muestra el estado vacío
 
 ## Variables de entorno
 
-Copia `.env.example`. El SMTP no está en Git. Si faltan `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` o `CONTACT_TO`, el formulario **no** finge un envío correcto.
+Copia `.env.example`. El SMTP de Nominalia no está en Git: la contraseña va en `.local/deploy.env` (`SMTP_PASS`) y se copia al VPS en `/opt/cubiops-contact/.env`. Si faltan `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` o `CONTACT_TO`, el formulario **no** finge un envío correcto.
 
 `PUBLIC_PLAUSIBLE_DOMAIN` vacío = sin analítica.
 

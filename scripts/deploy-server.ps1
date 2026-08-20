@@ -103,7 +103,7 @@ if (-not (Test-Path (Join-Path $dist 'index.html'))) {
     throw 'La compilación no generó dist/index.html'
 }
 if (-not (Test-Path $serverOut)) {
-    throw 'La compilación no generó dist-server/contact-api.mjs'
+    throw 'La compilación no generó dist-server/contact-api.cjs'
 }
 
 Write-Host '==> 3/6 Copia de seguridad remota...'
@@ -134,6 +134,18 @@ Copy-Remote $pscp $hostName $port $user $password $hostKey $caddySnippet "$remot
 Copy-Remote $pscp $hostName $port $user $password $hostKey $unitFile "$remoteTmp/cubiops-contact.service"
 $publishScript = Join-Path $repoRoot 'deploy\remote-publish.sh'
 Copy-Remote $pscp $hostName $port $user $password $hostKey $publishScript "$remoteTmp/remote-publish.sh"
+$smtpEnv = Join-Path $env:TEMP "cubiops-smtp-$stamp.env"
+@(
+    "SMTP_HOST=$($config['SMTP_HOST'])"
+    "SMTP_PORT=$($config['SMTP_PORT'])"
+    "SMTP_SECURE=$($config['SMTP_SECURE'])"
+    "SMTP_USER=$($config['SMTP_USER'])"
+    "SMTP_PASS=$($config['SMTP_PASS'])"
+    "SMTP_FROM=$($config['SMTP_FROM'])"
+    "CONTACT_TO=$($config['CONTACT_TO'])"
+) | Set-Content -Path $smtpEnv -Encoding ascii
+Copy-Remote $pscp $hostName $port $user $password $hostKey $smtpEnv "$remoteTmp/smtp.env"
+Remove-Item $smtpEnv -Force
 Remove-Item $bundle -Force
 
 Write-Host '==> 5/6 Publicando sin tocar otros sitios...'

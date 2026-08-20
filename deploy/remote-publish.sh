@@ -28,10 +28,10 @@ if [ ! -f "$CONTACT_DIR/.env" ]; then
 CONTACT_BIND_HOST=127.0.0.1
 CONTACT_BIND_PORT=3017
 CONTACT_ALLOWED_ORIGIN=https://cubiops.com
-SMTP_HOST=
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=
+SMTP_HOST=authsmtp.securemail.pro
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=contact@cubiops.com
 SMTP_PASS=
 SMTP_FROM=CubiOps <contact@cubiops.com>
 CONTACT_TO=contact@cubiops.com
@@ -39,6 +39,60 @@ ENV
   chown caddy:caddy "$CONTACT_DIR/.env"
   chmod 600 "$CONTACT_DIR/.env"
 fi
+python3 - "$CONTACT_DIR/.env" "${TMP_DIR}/smtp.env" <<'PY'
+from pathlib import Path
+import sys
+
+env_path = Path(sys.argv[1])
+smtp_path = Path(sys.argv[2])
+lines = env_path.read_text().splitlines() if env_path.exists() else []
+values = {}
+order = []
+for line in lines:
+    if not line.strip() or line.lstrip().startswith('#') or '=' not in line:
+        continue
+    key, raw = line.split('=', 1)
+    key = key.strip()
+    values[key] = raw
+    if key not in order:
+        order.append(key)
+
+defaults = {
+    'CONTACT_BIND_HOST': '127.0.0.1',
+    'CONTACT_BIND_PORT': '3017',
+    'CONTACT_ALLOWED_ORIGIN': 'https://cubiops.com',
+    'SMTP_HOST': 'authsmtp.securemail.pro',
+    'SMTP_PORT': '465',
+    'SMTP_SECURE': 'true',
+    'SMTP_USER': 'contact@cubiops.com',
+    'SMTP_FROM': 'CubiOps <contact@cubiops.com>',
+    'CONTACT_TO': 'contact@cubiops.com',
+}
+for key, default in defaults.items():
+    current = values.get(key, '').strip()
+    if not current:
+        values[key] = default
+        if key not in order:
+            order.append(key)
+
+if smtp_path.exists():
+    for line in smtp_path.read_text().splitlines():
+        if not line.strip() or line.lstrip().startswith('#') or '=' not in line:
+            continue
+        key, raw = line.split('=', 1)
+        key = key.strip()
+        if not raw.strip():
+            continue
+        values[key] = raw
+        if key not in order:
+            order.append(key)
+
+text = ''.join(f'{key}={values[key]}\n' for key in order if key in values)
+env_path.write_text(text)
+print('CONTACT_ENV_UPDATED')
+PY
+chown caddy:caddy "$CONTACT_DIR/.env"
+chmod 600 "$CONTACT_DIR/.env"
 
 install -m 644 "$TMP_DIR/cubiops-contact.service" /etc/systemd/system/cubiops-contact.service
 systemctl daemon-reload

@@ -12,6 +12,7 @@ describe('secretos fuera de git', () => {
 
   it('el ejemplo no contiene contraseñas SMTP', () => {
     expect(envExample).toContain('SMTP_PASS=');
-    expect(envExample).not.toMatch(/SMTP_PASS=.+/);
+    expect(envExample).toContain('authsmtp.securemail.pro');
+    expect(envExample).not.toMatch(/^SMTP_PASS=\S+/m);
   });
 });
