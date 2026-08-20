@@ -6,12 +6,30 @@ http://cubiops.com, http://www.cubiops.com, http://cubiops.es, http://www.cubiop
 }
 
 www.cubiops.com, cubiops.es, www.cubiops.es {
+	tls {
+		issuer acme {
+			preferred_chains {
+				root_common_name "ISRG Root X1"
+			}
+		}
+		key_type rsa2048
+	}
 	redir https://cubiops.com{uri} 308
 }
 
-cubiops.com {
+https://cubiops.com {
+	tls {
+		issuer acme {
+			preferred_chains {
+				root_common_name "ISRG Root X1"
+			}
+		}
+		key_type rsa2048
+	}
+
 	encode gzip zstd
 	header {
+		Strict-Transport-Security "max-age=31536000"
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
 		X-Frame-Options DENY
