@@ -823,10 +823,6 @@ details.faq[open] {
   opacity: 0.55;
 }
 
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
-}
-
 .scroll-progress {
   position: fixed;
   top: 0;
