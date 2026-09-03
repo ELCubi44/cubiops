@@ -4,7 +4,7 @@
 
 ## Ahora
 
-- Rama `main`. Web v1.5.6. Fichas de proyecto con más aire entre textos e iconos.
+- Rama `main`. Web v1.5.7. Menos hueco vacío entre secciones de la home.
 - Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
 - Home más corta: proyectos al inicio, menos texto explicativo.
 - Correo público: `contacto@cubiops.com`.
