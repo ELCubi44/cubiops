@@ -587,14 +587,16 @@ h3 {
 }
 
 .case-logos {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem 1.6rem;
+  align-items: start;
 }
 
 .case-logo {
   display: grid;
-  gap: 0.85rem;
+  gap: 0.5rem;
+  width: 11rem;
   text-decoration: none;
   color: inherit;
 }
@@ -602,12 +604,13 @@ h3 {
 .case-logo-frame {
   display: grid;
   place-items: center;
+  width: 7rem;
   aspect-ratio: 1;
   background: #05070d;
   border: 1px solid #1c2744;
   border-radius: var(--radius);
   overflow: hidden;
-  padding: 1.6rem;
+  padding: 0.55rem;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
@@ -619,20 +622,21 @@ h3 {
 }
 
 .case-logo-frame img {
-  width: min(100%, 16rem);
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
 
 .case-logo-name {
-  font-size: 1.15rem;
+  font-size: 0.98rem;
   font-weight: 650;
   letter-spacing: -0.03em;
 }
 
 .case-logo-hint {
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .case {
@@ -647,7 +651,7 @@ h3 {
 .case-hero {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: minmax(0, 1.2fr) minmax(12rem, 0.8fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   background: var(--navy);
   color: var(--white);
@@ -660,9 +664,10 @@ h3 {
 }
 
 .case-hero-logo {
+  width: 7.5rem;
   background: #05070d;
   border-radius: var(--radius);
-  padding: 1.2rem;
+  padding: 0.65rem;
 }
 
 .case-hero-logo img {
@@ -1075,7 +1080,6 @@ html.js-motion .problem.is-in:hover {
   .hero-grid,
   .cards,
   .problem-grid,
-  .case-logos,
   .case-hero,
   .case-works,
   .footer-grid {

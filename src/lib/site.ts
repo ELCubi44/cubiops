@@ -12,7 +12,7 @@ export const site = {
   description:
     'CubiOps diseña y desarrolla páginas web, aplicaciones y automatizaciones a medida para autónomos y pequeñas empresas. Presupuesto gratis, sin compromiso.',
   tagline: 'Automatización útil para negocios reales.',
-  version: '1.5.1',
+  version: '1.5.2',
 } as const;
 
 export const nav = [
