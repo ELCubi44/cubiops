@@ -648,27 +648,47 @@ h3 {
 
 .case-article {
   display: grid;
-  gap: 1.4rem;
+  gap: 1.75rem;
+}
+
+.case-article > h2 {
+  margin-top: 0.4rem;
 }
 
 .case-hero {
   display: grid;
-  gap: 1.5rem;
+  gap: 2rem;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   background: var(--navy);
   color: var(--white);
   border-radius: calc(var(--radius) + 0.2rem);
-  padding: clamp(1.4rem, 4vw, 2.4rem);
+  padding: clamp(1.6rem, 4vw, 2.6rem);
+}
+
+.case-hero-copy {
+  display: grid;
+  gap: 1.05rem;
+  align-content: start;
+}
+
+.case-hero-copy h1 {
+  line-height: 1.12;
 }
 
 .case-hero .lede {
   color: #d5deec;
+  line-height: 1.7;
+}
+
+.case-hero-copy .btn {
+  margin-top: 0.2rem;
+  justify-self: start;
 }
 
 .case-hero-logo {
   position: relative;
-  width: 7.5rem;
+  width: 6.25rem;
   aspect-ratio: 1;
   background: #05070d;
   border-radius: var(--radius);
@@ -687,25 +707,50 @@ h3 {
 .case-works {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .case-work {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.3rem;
+  padding: 1.55rem 1.5rem 1.7rem;
   display: grid;
-  gap: 0.45rem;
+  align-content: start;
+  gap: 0;
+}
+
+.case-work .eyebrow {
+  margin: 0 0 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .case-work-icon {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   object-fit: contain;
   object-position: center;
   background: #05070d;
   border-radius: 0.85rem;
+  margin: 0 0 1.05rem;
+}
+
+.case-work h3 {
+  margin: 0 0 0.55rem;
+  line-height: 1.35;
+}
+
+.case-work p {
+  margin: 0 0 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.case-work p:last-child {
+  margin-bottom: 0;
 }
 
 .case-work a {
@@ -714,7 +759,7 @@ h3 {
 }
 
 .case-back {
-  margin-top: 0.5rem;
+  margin-top: 0.85rem;
 }
 
 .faq-list {
