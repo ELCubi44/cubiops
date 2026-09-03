@@ -1,8 +1,6 @@
 ---
-import { Picture } from 'astro:assets';
 import { projects } from '../data/projects';
 import { getPublishedProjects } from '../lib/projects';
-import caseImage from '../assets/case-study-abstract.png';
 
 const published = getPublishedProjects(projects);
 ---
@@ -11,54 +9,20 @@ const published = getPublishedProjects(projects);
   <div class="wrap">
     <div class="section-head">
       <p class="kicker">Proyectos</p>
-      <h2 id="proyectos-title">Casos reales, cuando existan y se puedan contar.</h2>
-      <p class="lede">
-        No invento resultados ni testimonios. Cuando un cliente autorice un caso,
-        aparecerá aquí con el problema, la solución y lo que se pueda verificar.
-      </p>
+      <h2 id="proyectos-title">Trabajo real, en marcha.</h2>
+      <p class="lede">Pulsa un logo para ver qué construí.</p>
     </div>
 
-    {published.length === 0 ? (
-      <div class="projects-empty">
-        <Picture
-          src={caseImage}
-          alt="Composición abstracta de planos y un cubo abierto, reservada para futuros casos de éxito."
-          widths={[480, 800, 1100]}
-          sizes="(max-width: 860px) 100vw, 70vw"
-          formats={['avif', 'webp']}
-          quality={78}
-          class="projects-visual"
-        />
-        <div>
-          <h3>Los primeros casos se están preparando.</h3>
-          <p class="lede">
-            Si quieres ser uno de ellos, cuéntame el proceso que te hace perder
-            tiempo. Construimos la solución y, solo si lo autorizas, la
-            documentamos aquí.
-          </p>
-          <div class="actions" style="margin-top: 1.1rem;">
-            <a class="btn btn-navy" data-magnetic href="#contacto">Pide un presupuesto gratis</a>
-          </div>
-        </div>
-      </div>
-    ) : (
-      <div class="cards">
-        {published.map((project) => (
-          <article class="card">
-            <p class="eyebrow">{project.sector}</p>
-            <h3><a href={`/proyectos/${project.id}`}>{project.title}</a></h3>
-            <p>{project.problem}</p>
-          </article>
-        ))}
-      </div>
-    )}
+    <div class="case-logos">
+      {published.map((project) => (
+        <a class="case-logo" href={`/proyectos/${project.id}`} data-tilt>
+          <span class="case-logo-frame">
+            <img src={project.logo} alt="" width="280" height="280" />
+          </span>
+          <span class="case-logo-name">{project.clientName}</span>
+          <span class="case-logo-hint">{project.summary}</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
-
-<style>
-  .projects-visual {
-    border-radius: 1rem;
-    width: min(100%, 28rem);
-    height: auto;
-  }
-</style>

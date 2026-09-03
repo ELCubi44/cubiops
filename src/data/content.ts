@@ -92,62 +92,41 @@ export const services = [
 export const processSteps = [
   {
     n: '01',
-    title: 'Analizamos el problema',
-    body: 'Hablamos de cómo trabajas hoy. Qué se repite, qué se atasca y qué no hace falta tocar. Sin diagnóstico hinchado.',
+    title: 'Hablamos del problema',
+    body: 'Qué se atasca hoy. Sin diagnóstico hinchado.',
   },
   {
     n: '02',
-    title: 'Diseñamos una solución sencilla',
-    body: 'Propongo el alcance mínimo que resuelve el problema. Si algo no aporta, no se construye.',
+    title: 'Propongo lo justo',
+    body: 'Si no aporta, no se construye.',
   },
   {
     n: '03',
-    title: 'La construyo y conecto',
-    body: 'Diseño, desarrollo e integro yo. No hay un relevo a otro equipo ni un comercial en medio.',
+    title: 'Lo construyo yo',
+    body: 'Diseño, desarrollo y conexión. Sin relevos.',
   },
   {
     n: '04',
-    title: 'Probamos con situaciones reales',
-    body: 'Revisamos el flujo con casos de tu día a día: un pedido, una cita, un cliente impaciente. Corregimos antes de publicar.',
-  },
-  {
-    n: '05',
-    title: 'La publico y mantengo',
-    body: 'Lanzamos con calma y, si lo quieres, sigo cerca para ajustar y hacer crecer la solución.',
+    title: 'Lo publicamos',
+    body: 'En marcha, y mantenimiento si lo quieres.',
   },
 ] as const;
 
 export const faqs = [
   {
-    q: '¿Trabajas solo con empresas pequeñas?',
-    a: 'Trabajo principalmente con autónomos y pequeñas empresas. Si tu proyecto encaja con un trato directo y una solución a medida, podemos hablarlo. No pretendo cubrir cuentas que necesitan un equipo grande.',
-  },
-  {
     q: '¿Cuánto cuesta un proyecto?',
-    a: 'El presupuesto es gratis y sin compromiso. No publico tarifas cerradas porque cada negocio es distinto: cuando entiendo lo que necesitas, te envío una propuesta clara. CubiOps está pensado para pequeños negocios, con precios más asequibles que una agencia tradicional.',
-  },
-  {
-    q: '¿Hay que pagar mantenimiento?',
-    a: 'No es obligatorio. Después del lanzamiento puedes continuar por tu cuenta. Si prefieres que yo vigile, actualice y evolucione la solución, lo acordamos aparte, con el alcance por escrito.',
+    a: 'El presupuesto es gratis y sin compromiso. Cada negocio es distinto: cuando entiendo lo que necesitas, te envío una propuesta clara.',
   },
   {
     q: '¿Puedo empezar solo con una web?',
-    a: 'Sí. Muchos proyectos empiezan por una web clara y, más adelante, añaden reservas, automatizaciones o una aplicación. No hay que hacerlo todo el primer día.',
+    a: 'Sí. Muchos proyectos empiezan por una web y más adelante añaden reservas o una app.',
   },
   {
-    q: '¿Desarrollas aplicaciones para iPhone y Android?',
-    a: 'Sí. Puedo crear aplicaciones para iOS y Android. Cuando una web instalable cubre mejor el caso, también lo planteo. Te diré cuál tiene más sentido antes de construir.',
+    q: '¿Haces aplicaciones para iPhone y Android?',
+    a: 'Sí. Si una web instalable cubre mejor el caso, también lo planteo.',
   },
   {
-    q: '¿Puedes conectar las herramientas que ya utilizo?',
-    a: 'Sí, siempre que esas herramientas permitan integrarse de forma razonable. Lo revisamos en el análisis inicial para no prometer un encaje que no existe.',
-  },
-  {
-    q: '¿Qué ocurre después del lanzamiento?',
-    a: 'Te dejo la solución funcionando, con los accesos y las indicaciones necesarias. Si lo acordamos, sigo disponible para mantenimiento y cambios. Hablas conmigo, no con una cola de tickets anónima.',
-  },
-  {
-    q: '¿Quién es propietario del dominio y de los datos?',
-    a: 'Tú. El dominio, las cuentas y los datos de tu negocio deben estar a tu nombre. Yo no necesito ser titular para diseñar, publicar o mantener la solución. Si en algún momento trato datos de tus clientes, lo dejamos documentado.',
+    q: '¿De quién es el dominio y los datos?',
+    a: 'Tuyos. Yo no necesito ser titular para diseñar, publicar o mantener la solución.',
   },
 ] as const;

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { projects } from '../../data/projects';
-import { canShowPublicly, canShowRating } from '../../lib/projects';
+import { canShowPublicly, canShowRating, workLabel } from '../../lib/projects';
 
 export function getStaticPaths() {
   return projects.filter(canShowPublicly).map((project) => ({
@@ -16,35 +16,52 @@ const showRating = canShowRating(project);
 
 <BaseLayout
   title={project.title}
-  description={project.problem}
+  description={project.summary || project.problem}
   path={`/proyectos/${project.id}`}
   type="article"
+  image={project.logo}
 >
-  <section class="legal">
-    <article class="wrap legal-card">
+  <section class="case">
+    <article class="wrap case-article">
       <p class="kicker">{project.sector}</p>
-      <h1>{project.title}</h1>
-      <p class="eyebrow">{project.clientName}</p>
-      <h2>Problema</h2>
-      <p>{project.problem}</p>
-      <h2>Solución</h2>
-      <p>{project.solution}</p>
-      {project.automations.length > 0 && (
-        <>
-          <h2>Automatizaciones</h2>
-          <ul>
-            {project.automations.map((item) => <li>{item}</li>)}
-          </ul>
-        </>
-      )}
-      <h2>Resultado</h2>
-      <p>{project.result}</p>
-      {project.technologies.length > 0 && (
-        <>
-          <h2>Tecnologías</h2>
-          <p>{project.technologies.join(', ')}</p>
-        </>
-      )}
+      <div class="case-hero">
+        <div class="case-hero-copy">
+          <h1>{project.clientName}</h1>
+          <p class="lede">{project.summary}</p>
+          {project.url && (
+            <p>
+              <a class="btn btn-primary" href={project.url} rel="noopener noreferrer" target="_blank">
+                Visitar {project.url.replace(/^https:\/\//, '')}
+              </a>
+            </p>
+          )}
+        </div>
+        <div class="case-hero-logo">
+          <img src={project.logo} alt={project.logoAlt} width="320" height="320" />
+        </div>
+      </div>
+
+      <h2>Qué hice</h2>
+      <div class="case-works">
+        {project.works.map((work) => (
+          <article class="case-work">
+            <p class="eyebrow">{workLabel(work.kind)}</p>
+            {work.icon && (
+              <img class="case-work-icon" src={work.icon} alt="" width="96" height="96" />
+            )}
+            <h3>{work.title}</h3>
+            <p>{work.body}</p>
+            {work.url && (
+              <p>
+                <a href={work.url} rel="noopener noreferrer" target="_blank">
+                  {work.url.replace(/^https:\/\//, '')}
+                </a>
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+
       {showRating && (
         <>
           <h2>Valoración</h2>
@@ -53,11 +70,15 @@ const showRating = canShowRating(project);
           </p>
           <blockquote>
             <p>{project.testimonial}</p>
-            <footer>{project.reviewerName}{project.reviewerRole ? `, ${project.reviewerRole}` : ''}</footer>
+            <footer>
+              {project.reviewerName}
+              {project.reviewerRole ? `, ${project.reviewerRole}` : ''}
+            </footer>
           </blockquote>
         </>
       )}
-      <p><a href="/#proyectos">Volver a proyectos</a></p>
+
+      <p class="case-back"><a href="/#proyectos">Volver a proyectos</a></p>
     </article>
   </section>
 </BaseLayout>

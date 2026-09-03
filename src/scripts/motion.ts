@@ -21,7 +21,7 @@ export function initMotion(): void {
 }
 
 function initReveal(): void {
-  const nodes = document.querySelectorAll<HTMLElement>('.reveal, .card, .problem, .step, .faq, .about, .projects-empty, .form');
+  const nodes = document.querySelectorAll<HTMLElement>('.reveal, .card, .problem, .step, .faq, .about, .projects-empty, .case-logo, .form');
   if (prefersReducedMotion() || !nodes.length || !('IntersectionObserver' in window)) {
     nodes.forEach((node) => node.classList.add('is-in'));
     return;

@@ -39,7 +39,7 @@ powershell -File scripts/deploy-server.ps1
 4. Las estrellas solo se muestran si hay `rating` (1–5), testimonio y nombre de quien valora.
 5. Si falta alguno de esos campos, el caso puede publicarse sin valoración.
 
-Mientras no haya casos publicados, la sección pública muestra el estado vacío. El ejemplo en borrador **no** aparece en la web.
+Mientras no haya casos publicados, la sección pública muestra el estado vacío. El ejemplo en borrador **no** aparece en la web. Reprosonic y HAF Barber Shop están publicados con permiso del titular de CubiOps.
 
 ## Variables de entorno
 

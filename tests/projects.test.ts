@@ -11,21 +11,28 @@ describe('proyectos públicos', () => {
     expect(draft?.permissionToPublish).toBe(false);
   });
 
-  it('no publica borradores ni casos sin permiso', () => {
-    expect(getPublishedProjects(projects)).toEqual([]);
-    for (const project of projects) {
-      if (project.status !== 'published') {
-        expect(canShowPublicly(project)).toBe(false);
-      }
+  it('publica solo casos autorizados', () => {
+    const published = getPublishedProjects(projects);
+    expect(published.map((project) => project.id)).toEqual(['reprosonic', 'haf-barber-shop']);
+    for (const project of published) {
+      expect(canShowPublicly(project)).toBe(true);
+      expect(project.logo).toMatch(/^\/projects\//);
+      expect(project.works.length).toBeGreaterThan(0);
     }
   });
 
+  it('no publica el borrador', () => {
+    const draft = projects.find((project) => project.id === 'ejemplo-borrador');
+    expect(draft && canShowPublicly(draft)).toBe(false);
+  });
+
   it('no muestra estrellas sin valoración y testimonio autorizados', () => {
-    const draft = projects[0];
-    expect(canShowRating(draft)).toBe(false);
+    const draft = projects.find((project) => project.id === 'ejemplo-borrador');
+    expect(draft).toBeTruthy();
+    expect(canShowRating(draft!)).toBe(false);
     expect(
       canShowRating({
-        ...draft,
+        ...draft!,
         status: 'published',
         permissionToPublish: true,
         rating: 5,

@@ -12,21 +12,21 @@ export const site = {
   description:
     'CubiOps diseña y desarrolla páginas web, aplicaciones y automatizaciones a medida para autónomos y pequeñas empresas. Presupuesto gratis, sin compromiso.',
   tagline: 'Automatización útil para negocios reales.',
-  version: '1.4.0',
+  version: '1.5.0',
 } as const;
 
 export const nav = [
+  { href: '/#proyectos', label: 'Proyectos' },
   { href: '/#servicios', label: 'Servicios' },
   { href: '/#como-trabajo', label: 'Cómo trabajo' },
-  { href: '/#proyectos', label: 'Proyectos' },
   { href: '/#sobre-cubiops', label: 'Sobre CubiOps' },
   { href: '/#contacto', label: 'Contacto' },
 ] as const;
 
 export const footerNav = [
+  { href: '/#proyectos', label: 'Proyectos' },
   { href: '/#servicios', label: 'Servicios' },
   { href: '/#como-trabajo', label: 'Cómo trabajo' },
-  { href: '/#proyectos', label: 'Proyectos' },
   { href: '/#sobre-cubiops', label: 'Sobre CubiOps' },
   { href: '/#contacto', label: 'Contacto' },
   { href: '/#faq', label: 'Preguntas frecuentes' },

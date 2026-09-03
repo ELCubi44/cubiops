@@ -1,16 +1,30 @@
 export type ProjectStatus = 'draft' | 'published';
+export type ProjectWorkKind = 'web' | 'app';
+
+export interface ProjectWork {
+  kind: ProjectWorkKind;
+  title: string;
+  body: string;
+  url?: string;
+  icon?: string;
+}
 
 export interface Project {
   id: string;
   clientName: string;
   sector: string;
   title: string;
+  summary: string;
   problem: string;
   solution: string;
   technologies: string[];
   automations: string[];
   result: string;
   image: string;
+  logo: string;
+  logoAlt: string;
+  url?: string;
+  works: ProjectWork[];
   testimonial: string;
   reviewerName: string;
   reviewerRole: string;
@@ -45,4 +59,8 @@ export function sortProjects(projects: Project[]): Project[] {
 
 export function getPublishedProjects(projects: Project[]): Project[] {
   return sortProjects(projects.filter(canShowPublicly));
+}
+
+export function workLabel(kind: ProjectWorkKind): string {
+  return kind === 'web' ? 'Web' : 'App';
 }

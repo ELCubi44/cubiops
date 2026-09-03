@@ -586,6 +586,124 @@ h3 {
   align-items: start;
 }
 
+.case-logos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.case-logo {
+  display: grid;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.case-logo-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: #05070d;
+  border: 1px solid #1c2744;
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 1.6rem;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.case-logo:hover .case-logo-frame,
+.case-logo:focus-visible .case-logo-frame {
+  transform: translateY(-4px);
+  border-color: var(--mint);
+  box-shadow: var(--shadow);
+}
+
+.case-logo-frame img {
+  width: min(100%, 16rem);
+  height: auto;
+  object-fit: contain;
+}
+
+.case-logo-name {
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.case-logo-hint {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.case {
+  padding: clamp(2rem, 6vw, 4.5rem) 0 4rem;
+}
+
+.case-article {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.case-hero {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(12rem, 0.8fr);
+  align-items: center;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: calc(var(--radius) + 0.2rem);
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.case-hero .lede {
+  color: #d5deec;
+}
+
+.case-hero-logo {
+  background: #05070d;
+  border-radius: var(--radius);
+  padding: 1.2rem;
+}
+
+.case-hero-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.case-works {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.case-work {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.3rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.case-work-icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
+  background: #05070d;
+  border-radius: 0.85rem;
+  padding: 0.4rem;
+}
+
+.case-work a {
+  color: var(--mint-deep);
+  font-weight: 600;
+}
+
+.case-back {
+  margin-top: 0.5rem;
+}
+
 .faq-list {
   display: grid;
   gap: 0.7rem;
@@ -913,6 +1031,7 @@ html.js-motion .step,
 html.js-motion .faq,
 html.js-motion .about,
 html.js-motion .projects-empty,
+html.js-motion .case-logo,
 html.js-motion .form {
   opacity: 0;
   transform: translateY(22px);
@@ -927,6 +1046,7 @@ html.js-motion .step.is-in,
 html.js-motion .faq.is-in,
 html.js-motion .about.is-in,
 html.js-motion .projects-empty.is-in,
+html.js-motion .case-logo.is-in,
 html.js-motion .form.is-in {
   opacity: 1;
   transform: none;
@@ -957,6 +1077,9 @@ html.js-motion .problem.is-in:hover {
   .hero-grid,
   .cards,
   .problem-grid,
+  .case-logos,
+  .case-hero,
+  .case-works,
   .footer-grid {
     grid-template-columns: 1fr;
   }

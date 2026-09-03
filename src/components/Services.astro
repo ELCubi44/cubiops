@@ -7,17 +7,13 @@ import { services } from '../data/content';
     <div class="section-head">
       <p class="kicker">Servicios</p>
       <h2 id="servicios-title">Lo que puedo construir para tu negocio.</h2>
-      <p class="lede">
-        Elige un punto de partida. El presupuesto es gratis: te digo qué tiene
-        sentido construir y qué no hace falta.
-      </p>
+      <p class="lede">Web, app o reservas. El presupuesto es gratis.</p>
     </div>
     <div class="cards">
       {services.map((item) => (
         <article class="card" id={item.id} data-tilt>
           <h3>{item.title}</h3>
           <p class="lead">{item.lead}</p>
-          <p>{item.body}</p>
         </article>
       ))}
     </div>

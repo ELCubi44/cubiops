@@ -1,17 +1,20 @@
 # Estado actual — CubiOps
 
-Última actualización: 2026-08-31
+Última actualización: 2026-09-03
 
 ## Ahora
 
-- Rama `main` alineada con `origin/main`.
-- Correo público unificado a `contacto@cubiops.com` (buzón Nominalia).
-- Hay `.vscode/` local sin seguimiento (no se sube; está en `.gitignore`).
+- Rama `main`. Web v1.5.0.
+- Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
+- Home más corta: proyectos al inicio, menos texto explicativo.
+- Correo público: `contacto@cubiops.com`.
 
 ## Pendiente
 
-- Publicar casos de éxito solo con permiso real.
+- Analítica (Plausible) opcional.
+- Más casos solo con permiso real.
 
 ## No hacer
 
 - No tocar `miapi` (8080) ni Barber Shop Haf en este deploy.
+- No inventar testimonios ni cifras.
