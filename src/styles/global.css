@@ -1031,7 +1031,6 @@ html.js-motion .step,
 html.js-motion .faq,
 html.js-motion .about,
 html.js-motion .projects-empty,
-html.js-motion .case-logo,
 html.js-motion .form {
   opacity: 0;
   transform: translateY(22px);
@@ -1046,7 +1045,6 @@ html.js-motion .step.is-in,
 html.js-motion .faq.is-in,
 html.js-motion .about.is-in,
 html.js-motion .projects-empty.is-in,
-html.js-motion .case-logo.is-in,
 html.js-motion .form.is-in {
   opacity: 1;
   transform: none;

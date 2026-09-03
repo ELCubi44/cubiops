@@ -4,7 +4,7 @@
 
 ## Ahora
 
-- Rama `main`. Web v1.5.0.
+- Rama `main`. Web v1.5.1. Logos de proyectos visibles al cargar (sin esperar la animación de scroll).
 - Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
 - Home más corta: proyectos al inicio, menos texto explicativo.
 - Correo público: `contacto@cubiops.com`.
