@@ -4,7 +4,7 @@
 
 ## Ahora
 
-- Rama `main`. Web v1.5.3. Logos de proyectos compactos y centrados.
+- Rama `main`. Web v1.5.4. El gráfico de cada logo queda centrado dentro del recuadro.
 - Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
 - Home más corta: proyectos al inicio, menos texto explicativo.
 - Correo público: `contacto@cubiops.com`.
