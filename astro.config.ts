@@ -9,7 +9,7 @@ export default defineConfig({
   trailingSlash: 'never',
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
     format: 'directory',
   },
   image: {
