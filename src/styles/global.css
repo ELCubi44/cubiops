@@ -630,6 +630,23 @@ h3 {
   object-position: center;
 }
 
+.case-logo-badge {
+  position: absolute;
+  left: 0.4rem;
+  right: 0.4rem;
+  bottom: 0.4rem;
+  z-index: 1;
+  background: rgba(5, 7, 13, 0.82);
+  color: var(--mint);
+  border-radius: 999px;
+  padding: 0.22rem 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .case-logo-name {
   font-size: 0.98rem;
   font-weight: 650;

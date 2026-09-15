@@ -18,6 +18,7 @@ const published = getPublishedProjects(projects);
         <a class="case-logo" href={`/proyectos/${project.id}`} data-tilt>
           <span class="case-logo-frame">
             <img src={project.logo} alt="" width="112" height="112" />
+            {project.inDevelopment && <span class="case-logo-badge">En desarrollo</span>}
           </span>
           <span class="case-logo-name">{project.clientName}</span>
           <span class="case-logo-hint">{project.summary}</span>

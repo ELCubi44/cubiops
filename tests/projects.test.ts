@@ -13,11 +13,13 @@ describe('proyectos públicos', () => {
 
   it('publica solo casos autorizados', () => {
     const published = getPublishedProjects(projects);
-    expect(published.map((project) => project.id)).toEqual(['reprosonic', 'haf-barber-shop']);
+    expect(published.map((project) => project.id)).toEqual(['corteya', 'reprosonic', 'haf-barber-shop']);
     for (const project of published) {
       expect(canShowPublicly(project)).toBe(true);
       expect(project.logo).toMatch(/^\/projects\//);
-      expect(project.works.length).toBeGreaterThan(0);
+      if (!project.inDevelopment) {
+        expect(project.works.length).toBeGreaterThan(0);
+      }
     }
   });
 

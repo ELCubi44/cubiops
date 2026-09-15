@@ -33,6 +33,7 @@ export interface Project {
   permissionToPublish: boolean;
   status: ProjectStatus;
   featured: boolean;
+  inDevelopment?: boolean;
 }
 
 export function canShowPublicly(project: Project): boolean {

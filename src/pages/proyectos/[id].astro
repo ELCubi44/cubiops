@@ -27,7 +27,7 @@ const showRating = canShowRating(project);
       <div class="case-hero">
         <div class="case-hero-copy">
           <h1>{project.clientName}</h1>
-          <p class="lede">{project.summary}</p>
+          {project.summary && <p class="lede">{project.summary}</p>}
           {project.url && (
             <p>
               <a class="btn btn-primary" href={project.url} rel="noopener noreferrer" target="_blank">
@@ -41,26 +41,30 @@ const showRating = canShowRating(project);
         </div>
       </div>
 
-      <h2>Qué hice</h2>
-      <div class="case-works">
-        {project.works.map((work) => (
-          <article class="case-work">
-            <p class="eyebrow">{workLabel(work.kind)}</p>
-            {work.icon && (
-              <img class="case-work-icon" src={work.icon} alt="" width="96" height="96" />
-            )}
-            <h3>{work.title}</h3>
-            <p>{work.body}</p>
-            {work.url && (
-              <p>
-                <a href={work.url} rel="noopener noreferrer" target="_blank">
-                  {work.url.replace(/^https:\/\//, '')}
-                </a>
-              </p>
-            )}
-          </article>
-        ))}
-      </div>
+      {project.works.length > 0 && (
+        <>
+          <h2>Qué hice</h2>
+          <div class="case-works">
+            {project.works.map((work) => (
+              <article class="case-work">
+                <p class="eyebrow">{workLabel(work.kind)}</p>
+                {work.icon && (
+                  <img class="case-work-icon" src={work.icon} alt="" width="96" height="96" />
+                )}
+                <h3>{work.title}</h3>
+                <p>{work.body}</p>
+                {work.url && (
+                  <p>
+                    <a href={work.url} rel="noopener noreferrer" target="_blank">
+                      {work.url.replace(/^https:\/\//, '')}
+                    </a>
+                  </p>
+                )}
+              </article>
+            ))}
+          </div>
+        </>
+      )}
 
       {showRating && (
         <>

@@ -4,7 +4,7 @@
 
 ## Ahora
 
-- Rama `main`. Web v1.5.8. Estilos de las fichas de proyecto van en el HTML (ya no se quedan en crudo tras un deploy). HTML sin caché agresiva; 404 real si falta un CSS.
+- Rama `main`. Web v1.5.9. Casos públicos: Reprosonic, HAF Barber Shop y Corteya (`corteya.es`, en desarrollo, sin detalle de producto).
 - Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
 - Home más corta: proyectos al inicio, menos texto explicativo.
 - Correo público: `contacto@cubiops.com`.
