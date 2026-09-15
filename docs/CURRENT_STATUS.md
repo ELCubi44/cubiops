@@ -1,11 +1,10 @@
 # Estado actual — CubiOps
 
-Última actualización: 2026-09-03
+Última actualización: 2026-09-15
 
 ## Ahora
 
-- Rama `main`. Web v1.5.9. Casos públicos: Reprosonic, HAF Barber Shop y Corteya (`corteya.es`, en desarrollo, sin detalle de producto).
-- Casos públicos: Reprosonic (`reprosonic.es`, web de citas + app de facturas) y HAF Barber Shop (`hafbarbershop.es`, web y app de citas, agenda y productos).
+- Rama `main`. Web v1.6.0. Logo de Corteya: solo el símbolo, sin texto.
 - Home más corta: proyectos al inicio, menos texto explicativo.
 - Correo público: `contacto@cubiops.com`.
 
